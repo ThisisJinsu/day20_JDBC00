@@ -44,6 +44,9 @@ public class MainClass {
 				name = input.next();
 				System.out.println("나이 입력");
 				age = input.nextInt();
+				
+				db.saveData(id, name, age);
+				
 				break;
 			case 4: break; 
 			case 5: break;

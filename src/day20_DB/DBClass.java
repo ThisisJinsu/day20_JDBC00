@@ -74,6 +74,7 @@ public class DBClass {
 			if(rs.next()) {
 				
 				dto = new StudentDTO();
+										//변수 아님 ! rs가 db에서 id를 가져오는거 
 				dto.setId(rs.getString("id"));
 				dto.setName(rs.getString("name"));
 				dto.setAge(rs.getInt("age"));
@@ -83,4 +84,40 @@ public class DBClass {
 		}
 		return dto;
 	}
+	
+	public void saveData(String userId, String userName, int userAge) {
+		//insert into newst values('aaa','김개똥',33);
+											//userId, userName, userAge
+		//String sql = "insert into newst values('"+userId+"','"+userName+"','"+33+")";
+											//?로 잠시 표시해 놓기(나중에 넣기)
+		String sql = "insert into newst values(? , ? , ?)";
+		int result = 0;
+		try {
+			//1. 데이터 베이스 연결 객체 얻어오기
+			Connection con = DriverManager.getConnection(url, id, pwd);
+		//2. 쿼리문 전송객체 얻어오기
+			PreparedStatement ps = con.prepareStatement(sql);
+			//? 자리 채우기 () 1,2,3의 숫자는 ?자리 순서임
+			ps.setString(1, userId);
+			ps.setString(2, userName);
+			ps.setInt(3, userAge);
+			//4. 쿼리문 전송(실행)
+			//select가 들어오는건 exequteQuery로 받아줌 insert는 executeUpdate이용
+			//ResultSet rs = ps.executeQuery();
+			//select를 제외한 다른 쿼리문은 executeUdate()를 사용
+			//execyteUpdate는 int형태의 값을 돌려준다. 성공1 , 실패0 또는 에러
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+				
+	}
 }
+
+
+
+
+
+
+
+
